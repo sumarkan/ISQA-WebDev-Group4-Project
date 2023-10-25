@@ -5,7 +5,7 @@ from django.views import generic
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'ticketing/index.html')
 
 
 def shuttle_list(request):
