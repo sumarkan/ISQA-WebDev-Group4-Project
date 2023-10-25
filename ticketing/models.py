@@ -65,7 +65,7 @@ class Ticket(models.Model):
         return f'{self.ticket_number}'
 
 
-class PaymentDetail(models.Model):
+class PaymentDetails(models.Model):
     """Model representing an PaymentStatus."""
 
     PAID = 'PAID'
