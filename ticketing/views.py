@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from .models import Shuttle, ShuttleSchedule, Ticket, PaymentDetails
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import generic
 
 
 def index(request):
@@ -37,3 +39,13 @@ def payment_details_list(request):
     payments = PaymentDetails.objects.all()
     context = {'payments': payments}
     return render(request, 'payment_details_list.html', context)
+
+class mytickets(LoginRequiredMixin,generic.ListView):
+    """Generic class-based view listing tickets purchased by the customer logged in"""
+    model = Ticket
+    template_name = 'my_tickets.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Ticket.objects.filter\
+(customer=self.request.user).order_by('purchased_date')

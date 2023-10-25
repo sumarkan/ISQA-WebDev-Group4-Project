@@ -10,4 +10,5 @@ urlpatterns = [
     path('privacy_policy/', views.privacy_policy, name='privacy_policy'),
     path('terms_of_service/', views.terms_of_service, name='terms_of_service'),
     path('contact_us/', views.contact_us, name='contact_us'),
+    path('mytickets/', views.mytickets.as_view(), name='mytickets'),
 ]
