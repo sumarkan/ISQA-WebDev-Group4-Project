@@ -51,11 +51,10 @@ class Ticket(models.Model):
                                      help_text='Unique ID for this particular ticket purchased')
     purchased_date = models.DateField()
     shuttle_schd_id = models.ForeignKey('ShuttleSchedule', on_delete=models.RESTRICT, null=True)
-    payment_status = models.CharField(max_length=25)
     customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
-        ordering = ['purchased_date', 'payment_status']
+        ordering = ['purchased_date']
 
     def get_absolute_url(self):
         """Returns the URL to access a particular shuttle scheudle instance."""
@@ -64,3 +63,40 @@ class Ticket(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.ticket_number}'
+
+
+class PaymentDetails(models.Model):
+    """Model representing an PaymentStatus."""
+
+    PAID = 'PAID'
+    CANCELEED = 'CANCELEED'
+    PENDING = 'PENDING'
+    NO_STATUS = 'NO_STATUS'
+    PAYMENT_STATUS_OPTIONS = (
+        (PAID, 'Paid'),
+        (CANCELEED, 'Cancelled'),
+        (PENDING, 'Pending'),
+        (NO_STATUS, 'No_status'),
+    )
+    payment_status = models.CharField(
+        max_length=50,
+        choices=PAYMENT_STATUS_OPTIONS,
+        default=NO_STATUS,
+    )
+
+    transaction_id = models.UUIDField(primary_key=True, default=uuid.uuid4,
+                                      help_text='Unique ID for this particular transaction')
+    payment_method = models.CharField(max_length=100)
+    amount = models.IntegerField()
+    ticket = models.ForeignKey(Ticket, on_delete=models.SET_NULL, null=True, blank=True)
+
+    class Meta:
+        ordering = ['payment_status', 'payment_method', 'amount']
+
+    def get_absolute_url(self):
+        """Returns the URL to access a particular shuttle instance."""
+        return reverse('shuttle_detail', args=[str(self.transaction_id)])
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return f'{self.transaction_id}'
