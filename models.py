@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Shuttle(models.Model):
-    """Model representing an Shuttle."""
+    """Model representing a Shuttle."""
 
     name = models.CharField(max_length=100)
     capacity = models.IntegerField()
@@ -26,17 +26,17 @@ class Shuttle(models.Model):
 
 
 class ShuttleSchedule(models.Model):
-    """Model representing an Shuttle_schedule."""
+    """Model representing a Shuttle_schedule."""
 
-    schd_time = models.TimeField()
-    schd_date = models.DateField()
+    schedule_time = models.TimeField()
+    schedule_date = models.DateField()
     shuttle_id = models.ForeignKey('Shuttle', on_delete=models.RESTRICT, null=True)
 
     class Meta:
-        ordering = ['schd_date', 'schd_time']
+        ordering = ['schedule_date', 'schedule_time']
 
     def get_absolute_url(self):
-        """Returns the URL to access a particular shuttle scheudle instance."""
+        """Returns the URL to access a particular shuttle schedule instance."""
         return reverse('ShuttleSchedule', args=[str(self.id)])
 
     def __str__(self):
@@ -45,19 +45,20 @@ class ShuttleSchedule(models.Model):
 
 
 class Ticket(models.Model):
-    """Model representing an Shuttle_schedule."""
-    # // customer_id, purchased_date, payment_status, shuttle_schd_id
+    """Model representing a Shuttle_schedule."""
+    # // customer_id, purchased_date, payment_status, shuttle_schedule_id
     ticket_number = models.UUIDField(primary_key=True, default=uuid.uuid4,
                                      help_text='Unique ID for this particular ticket purchased')
     purchased_date = models.DateField()
-    shuttle_schd_id = models.ForeignKey('ShuttleSchedule', on_delete=models.RESTRICT, null=True)
+    shuttle_schedule_id = models.ForeignKey('ShuttleSchedule', on_delete=models.RESTRICT, null=True)
+    payment_status = models.CharField(max_length=25)
     customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
-        ordering = ['purchased_date']
+        ordering = ['purchased_date', 'payment_status']
 
     def get_absolute_url(self):
-        """Returns the URL to access a particular shuttle scheudle instance."""
+        """Returns the URL to access a particular shuttle schedule instance."""
         return reverse('Ticket', args=[str(self.ticket_number)])
 
     def __str__(self):
@@ -65,16 +66,16 @@ class Ticket(models.Model):
         return f'{self.ticket_number}'
 
 
-class PaymentDetail(models.Model):
-    """Model representing an PaymentStatus."""
+class PaymentDetails(models.Model):
+    """Model representing a PaymentStatus."""
 
     PAID = 'PAID'
-    CANCELEED = 'CANCELEED'
+    CANCELED = 'CANCELED'
     PENDING = 'PENDING'
     NO_STATUS = 'NO_STATUS'
     PAYMENT_STATUS_OPTIONS = (
         (PAID, 'Paid'),
-        (CANCELEED, 'Cancelled'),
+        (CANCELED, 'Cancelled'),
         (PENDING, 'Pending'),
         (NO_STATUS, 'No_status'),
     )
