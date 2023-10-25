@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Shuttle, ShuttleSchedule, Ticket, PaymentDetails
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def index(request):
     return render(request, 'index.html')
