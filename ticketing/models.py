@@ -51,7 +51,6 @@ class Ticket(models.Model):
                                      help_text='Unique ID for this particular ticket purchased')
     purchased_date = models.DateField()
     shuttle_schd_id = models.ForeignKey('ShuttleSchedule', on_delete=models.RESTRICT, null=True)
-    payment_status = models.CharField(max_length=25)
     customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
