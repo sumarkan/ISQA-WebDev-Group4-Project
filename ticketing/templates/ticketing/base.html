@@ -61,9 +61,19 @@
                 <a class="nav-link" href="{% url 'login' %}">Login</a>
             </li>
             {% endif %}
+        <li><a class="nav-link" href="{% url 'register' %}"><span class="glyphicon glyphicon-log-in"></span>Sign Up</a>
+        </li>
+
         </ul>
     </div>
 </nav>
+
+
+<div class="container">
+    {% if user.is_authenticated %}
+        Welcome, {{ user.first_name }} {{ user.last_name }}
+    {% endif %}
+</div>
 
     <div class="container">
         <main>
