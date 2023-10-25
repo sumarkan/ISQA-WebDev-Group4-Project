@@ -46,6 +46,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'payment_details_list' %}">View Payment Details</a>
                 </li>
+                {% if user.is_authenticated %}
+                <li><a class="nav-link" href="{% url 'mytickets' %}">My Tickets</a></li>
+                {% endif %}
+
             </ul>
             <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
