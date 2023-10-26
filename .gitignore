@@ -10,7 +10,7 @@ venv
 *.log
 *.pot
 *.pyc
-db.sqllite3
+db.sqlite3
 __pycache__/
 local_settings.py
 media
