@@ -11,5 +11,7 @@ urlpatterns = [
                                                   settings.STATIC_ROOT}),  # serve static files when deployed
     path('', include('ticketing.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('', include('register.urls')),
+
 
 ]

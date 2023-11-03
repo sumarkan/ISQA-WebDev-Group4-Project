@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "ticketing/base.html" %}
+
+{% block content %}
+    <h1>My Purchased Tickets</h1>
+
+    {% if ticket_list %}
+    <ul>
+
+      {% for ticket in ticket_list %}
+      <li >
+        <a href="{% url 'mytickets' ticket.ticket.pk %}">{{ ticket.ticket_number }}</a> ({{ ticket.purchased.date }})
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>You have not purchased any tickets.</p>
+    {% endif %}
+{% endblock %}
+</html>
