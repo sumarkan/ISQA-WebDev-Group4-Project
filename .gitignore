@@ -2,3 +2,4 @@
 shuttle_ticketing/__pycache__
 ticketing/__pycache__
 ticketing/migrations/__pycache__
+db.sqlite3
