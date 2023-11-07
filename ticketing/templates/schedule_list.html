@@ -1,0 +1,10 @@
+{% extends "ticketing/base.html" %}
+
+{% block content %}
+    <h2>Shuttle Schedule</h2>
+    <ul>
+    {% for schedule in schedule_list %}
+        <li>Shuttle {{ schedule.shuttle.name }} departs on {{ schedule.departure_date }} at {{ schedule.departure_time }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
