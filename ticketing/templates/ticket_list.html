@@ -1,10 +1,11 @@
 {% extends "ticketing/base.html" %}
 
 {% block content %}
-    <h2>Ticket List</h2>
+    <br>
+    <h5>your booked Tickets</h5>
     <ul>
     {% for ticket in ticket_list %}
-        <li>Ticket ID: {{ ticket.id }} - Purchased by: {{ ticket.purchaser }}</li>
+        <li>Purchased Date: {{ ticket.purchased_date }} - Purchased by: {{ ticket.customer }}</li>
     {% endfor %}
     </ul>
 {% endblock %}

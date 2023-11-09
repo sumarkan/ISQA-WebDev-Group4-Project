@@ -1,10 +1,21 @@
 {% extends "ticketing/base.html" %}
 
 {% block content %}
-    <h2>Shuttle List</h2>
-    <ul>
-    {% for shuttle in shuttle_list %}
-        <li>{{ shuttle.name }} - {{ shuttle.capacity }} seats</li>
-    {% endfor %}
-    </ul>
+    <h5>Available Shuttles</h5> <br>
+        <table>
+            <tr>
+                <th>Shuttle Name</th>
+                <th>  Capacity</th>
+                <th>  Color</th>
+            </tr>
+            {% for shuttle in shuttle_list %}
+                <tbody id="tbody">
+                <tr>
+                    <td>{{ shuttle.name }} </td>
+                    <td>{{ shuttle.capacity }}</td>
+                    <td>{{ shuttle.color }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 {% endblock %}
