@@ -3,9 +3,19 @@
 {% block content %}
     <br>
     <h6>Shuttle Schedule</h6>
-    <div>
+    <table class="table table-bordered">
+        <tr class="table-secondary">
+            <th>Shuttle Name</th>
+            <th> departs on</th>
+            <th> At</th>
+        </tr>
         {% for schedule in schedule_list %}
-            Parking Station:  Shuttle Name: <b>{{ schedule.shuttle_id.name }} </b> departs on <b> {{ schedule.schd_date }} </b> at <b> {{ schedule.schd_time }}</b>  <a href="">  Book Now </a><br>
+            <tr class="table-secondary">
+                <td>{{ schedule.shuttle_id.name }} </td>
+                <td>{{ schedule.schd_date }}</td>
+                <td>{{ schedule.schd_time }} <a href=""> Book Now </a></td>
+            </tr>
+
         {% endfor %}
-    </div>
+    </table>
 {% endblock %}

@@ -1,21 +1,24 @@
 {% extends "ticketing/base.html" %}
 
 {% block content %}
-    <h5>Available Shuttles</h5> <br>
-        <table>
-            <tr>
+    <br>
+    <div>These are the Available Shuttles, Please assign/allocate to corresponding drivers in admin screen </div> <br>
+    <div>
+        <table class="table table-bordered">
+            <tr class="table-secondary">
                 <th>Shuttle Name</th>
-                <th>  Capacity</th>
-                <th>  Color</th>
+                <th> Capacity</th>
+                <th> Color</th>
+                <th> Operated Employee</th>
             </tr>
             {% for shuttle in shuttle_list %}
-                <tbody id="tbody">
-                <tr>
+                <tr class="table-secondary">
                     <td>{{ shuttle.name }} </td>
                     <td>{{ shuttle.capacity }}</td>
                     <td>{{ shuttle.color }}</td>
+                    <td>{{ shuttle.operated_by }}</td>
                 </tr>
             {% endfor %}
-            </tbody>
         </table>
+    </div>
 {% endblock %}
