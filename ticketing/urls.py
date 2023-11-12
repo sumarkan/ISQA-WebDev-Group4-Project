@@ -12,4 +12,6 @@ urlpatterns = [
     path('contact_us/', views.contact_us, name='contact_us'),
     path('mytickets/', views.mytickets.as_view(), name='mytickets'),
     path('shuttle/create/', views.ShuttleCreate.as_view(), name='shuttle_create'),
+    path('shuttle/<int:pk>/update/', views.ShuttleUpdate.as_view(), name='shuttle_update'),
+    path('shuttle/<int:pk>/delete/', views.shuttle_delete, name='shuttle_delete'),
 ]

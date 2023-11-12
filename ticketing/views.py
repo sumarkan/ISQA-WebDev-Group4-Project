@@ -1,11 +1,14 @@
-from django.shortcuts import render
 from .models import Shuttle, ShuttleSchedule, Ticket, PaymentDetails
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
+from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect
 
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView
+from django.contrib import messages
+
 
 def index(request):
     return render(request, 'ticketing/index.html')
@@ -61,9 +64,30 @@ class mytickets(LoginRequiredMixin, generic.ListView):
 
 class ShuttleCreate(CreateView):
     model = Shuttle
-    fields = ['name', 'capacity', 'color']
+    fields = ['name', 'capacity', 'color', 'operated_by']
 
     def form_valid(self, form):
         post = form.save(commit=False)
         post.save()
         return HttpResponseRedirect(reverse('shuttle_list'))
+
+
+class ShuttleUpdate(UpdateView):
+    model = Shuttle
+    fields = ['name', 'capacity', 'color', 'operated_by']
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.save()
+        return HttpResponseRedirect(reverse('shuttle_list'))
+
+
+def shuttle_delete(request, pk):
+    shuttle = get_object_or_404(Shuttle, pk=pk)
+    try:
+        shuttle.delete()
+        messages.success(request, (shuttle.name + " has been deleted"))
+    except:
+        messages.success(request, (shuttle.name + ' cannot be deleted, Shuttle does not exists'))
+
+    return redirect('shuttle_list')
