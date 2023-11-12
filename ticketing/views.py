@@ -3,6 +3,9 @@ from .models import Shuttle, ShuttleSchedule, Ticket, PaymentDetails
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.views.generic.edit import CreateView, UpdateView
 
 def index(request):
     return render(request, 'ticketing/index.html')
@@ -54,3 +57,13 @@ class mytickets(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return Ticket.objects.filter \
             (customer=self.request.user).order_by('purchased_date')
+
+
+class ShuttleCreate(CreateView):
+    model = Shuttle
+    fields = ['name', 'capacity', 'color']
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.save()
+        return HttpResponseRedirect(reverse('shuttle_list'))
