@@ -2,22 +2,21 @@
 
 {% block content %}
     <h2>My Account</h2>
-    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+    <br/>
     <ul>
         <div class="container">
             <!-- My Tickets here --><table class="table">
   <thead>
-    <tr>
+    <tr class="table-success" >
       <th scope="col">Date</th>
       <th scope="col">Time</th>
       <th scope="col">Number of Tickets</th>
       <th scope="col">Shuttle Name</th>
-      <th scope="col">FutureColumn for Edit/Delete</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th scope="row">1</th>
       <td>code - date</td>
       <td>code - time</td>
       <td>code - # Tickets</td>
@@ -25,21 +24,20 @@
       <td>Code - edit/delete</td>
     </tr>
   </tbody>
-</table>
+</table><br/><br/>
         </div>
         <div class="container">
             <!-- My Payment Methods here --><table class="table">
   <thead>
-    <tr>
+    <tr class="table-info">
       <th scope="col">Card Name</th>
       <th scope="col">Card #</th>
-      <th scope="col">Cart Expiration</th>
-      <th scope="col">edit/delete</th>
+      <th scope="col">Expiration</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th scope="row">1</th>
       <td>code - name</td>
       <td>code - #</td>
       <td>code - expiration</td>
