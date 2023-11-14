@@ -2,7 +2,7 @@
 
 {% block content %}
     <br>
-    <div>These are the Available Shuttles, Please assign/allocate to corresponding drivers in admin screen </div> <br>
+    <div>These are the Available Shuttles, Please assign/allocate to corresponding Employees in admin screen</div> <br>
     <div>
         <table class="table table-bordered">
             <tr class="table-secondary">
@@ -10,6 +10,7 @@
                 <th> Capacity</th>
                 <th> Color</th>
                 <th> Operated Employee</th>
+                <th>Edit/Delete Shuttle</th>
             </tr>
             {% for shuttle in shuttle_list %}
                 <tr class="table-secondary">
@@ -17,8 +18,13 @@
                     <td>{{ shuttle.capacity }}</td>
                     <td>{{ shuttle.color }}</td>
                     <td>{{ shuttle.operated_by }}</td>
+                    <td>
+                        <a href="{% url 'shuttle_update' pk=shuttle.pk %}">Edit </a>
+                        /<a href="{% url 'shuttle_delete' pk=shuttle.pk %}">Delete </a>
+                    </td>
                 </tr>
             {% endfor %}
         </table>
+        <a href="{% url 'shuttle_create' %}">Add New Shuttle</a>
     </div>
 {% endblock %}
