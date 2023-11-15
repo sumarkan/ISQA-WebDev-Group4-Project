@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 # Application definition
 
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'ticketing.apps.TicketingConfig',
     'register.apps.RegisterConfig',
     'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
 

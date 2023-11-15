@@ -13,6 +13,7 @@ class Shuttle(models.Model):
     name = models.CharField(max_length=100)
     capacity = models.IntegerField()
     color = models.CharField(max_length=100)
+    operated_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
         ordering = ['capacity', 'color']
