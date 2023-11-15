@@ -1,13 +1,17 @@
 {% extends "ticketing/base.html" %}
 
 {% block content %}
-    <h2>My Account</h2>
+    <h2>Welcome {{ ticket.customer.first_name }} {{ ticket.customer.last_name  }}</h2><br/>
+    <a class="button" href="{% url 'logout' %}">Logout</a>
+
     <br/>
     <ul>
         <div class="container">
-            <!-- My Tickets here --><table class="table">
+            <!-- My Tickets here -->
+<table class="table">
   <thead>
     <tr class="table-success" >
+
       <th scope="col">Date</th>
       <th scope="col">Time</th>
       <th scope="col">Number of Tickets</th>
@@ -17,12 +21,21 @@
   </thead>
   <tbody>
   {% for ticket in ticket_list %}
-
-        {% endfor %}
-      <td>code - date</td>
-      <td>code - time</td>
-      <td>code - # Tickets</td>
-      <td>code - Shuttle Name</td>
+                <tr class="table-secondary">
+                    <td>{{ ticket.shuttle_schd_id.schd_date }} </td>
+                    <td>{{ ticket.shuttle_schd_id.schd_time }}</td>
+                    <td>Count or is this a field?</td>
+                    <td>Payment Status needs foreign key</td>
+                    <td>edit/delete
+{#                        <a href="{% url 'shuttle_update' pk=shuttle.pk %}">Edit </a>#}
+{#                        /<a href="{% url 'shuttle_delete' pk=shuttle.pk %}">Delete </a>#}
+                    </td>
+                </tr>
+            {% endfor %}
+      <td>{{ ShuttleSchedule.schd_date }}</td>
+      <td>{{ ShuttleSchedule.schd_date }}</td>
+      <td>count # Tickets or attribute?</td>
+      <td>{{ shuttle.name }}</td>
       <td>Code - edit/delete</td>
   </tbody>
 </table><br/><br/>
@@ -39,10 +52,10 @@
   </thead>
   <tbody>
     <tr>
-      <td>code - name</td>
-      <td>code - #</td>
-      <td>code - expiration</td>
-      <td>code - edit/delete</td>
+      <td>Wells Fargo</td>
+      <td>xxxx xxxx xxxx 8393</td>
+      <td>05/27</td>
+      <td>edit/delete</td>
     </tr>
       </tbody>
 </table>

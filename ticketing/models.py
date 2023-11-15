@@ -45,6 +45,7 @@ class ShuttleSchedule(models.Model):
         """String for representing the Model object."""
         return f'{self.shuttle_sched_id}'
 
+
 class Ticket(models.Model):
     """Model representing an Shuttle_schedule."""
     # // customer_id, purchased_date, payment_status, shuttle_schd_id
