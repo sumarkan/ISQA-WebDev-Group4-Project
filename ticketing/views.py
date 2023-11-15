@@ -52,17 +52,6 @@ class ShuttleListView(generic.ListView):
     model = Shuttle
 
 
-class MyTickets(LoginRequiredMixin,generic.ListView):
-    """Generic class-based view listing tickets purchased by the customer logged in"""
-    model = Ticket
-    template_name = 'my_tickets.html'
-    paginate_by = 10
-
-    def get_queryset(self):
-        return Ticket.objects.filter \
-            (customer=self.request.user).order_by('purchased_date')
-
-
 class ShuttleCreate(CreateView):
     model = Shuttle
     fields = ['name', 'capacity', 'color', 'operated_by']
