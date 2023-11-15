@@ -19,8 +19,8 @@
                     <td>{{ shuttle.color }}</td>
                     <td>{{ shuttle.operated_by }}</td>
                     <td>
-{#                        <a href="{% url 'shuttle_update' pk=shuttle.pk %}">Edit </a>#}
-{#                        /<a href="{% url 'shuttle_delete' pk=shuttle.pk %}">Delete </a>#}
+                        <a href="{% url 'shuttle_update' pk=shuttle.pk %}">Edit </a>
+                        /<a href="{% url 'shuttle_delete' pk=shuttle.pk %}">Delete </a>
                     </td>
                 </tr>
             {% endfor %}
