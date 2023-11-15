@@ -1,10 +1,31 @@
 {% extends "ticketing/base.html" %}
 
 {% block content %}
-    <h2>Ticket List</h2>
-    <ul>
-    {% for ticket in ticket_list %}
-        <li>Ticket ID: {{ ticket.id }} - Purchased by: {{ ticket.purchaser }}</li>
-    {% endfor %}
-    </ul>
+    <br>
+    <div>List of all Tickets, Filter options to come - </div> <br>
+    <div>
+        <table class="table table-bordered">
+            <tr class="table-secondary">
+                <th> Shuttle Date </th>
+                <th> Shuttle Time </th>
+                <th> Customer Name </th>
+                <th> Purchase Date </th>
+                <th> Payment Status </th>
+                <th>Edit/Delete Shuttle</th>
+            </tr>
+            {% for ticket in ticket_list %}
+                <tr class="table-secondary">
+                    <td>{{ ticket.shuttle_schd_id.schd_date }} </td>
+                    <td>{{ ticket.shuttle_schd_id.schd_time }}</td>
+                    <td>{{ ticket.customer.first_name }} {{ ticket.customer.last_name  }}</td>
+                    <td>Payment Status needs foreign key</td>
+                    <td>edit/delete
+{#                        <a href="{% url 'shuttle_update' pk=shuttle.pk %}">Edit </a>#}
+{#                        /<a href="{% url 'shuttle_delete' pk=shuttle.pk %}">Delete </a>#}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <a>Add New Ticket</a>
+    </div>
 {% endblock %}

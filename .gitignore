@@ -1,3 +1,8 @@
+.idea
+shuttle_ticketing/__pycache__
+ticketing/__pycache__
+ticketing/migrations/__pycache__
+db.sqlite3
 # Files to ignore when pushing a PyCharm Django project to github
 #files only needed by a PyCharm project and local-only django
 files
