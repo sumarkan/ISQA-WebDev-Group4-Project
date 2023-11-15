@@ -1,0 +1,50 @@
+{% extends "ticketing/base.html" %}
+
+{% block content %}
+    <h2>My Account</h2>
+    <br/>
+    <ul>
+        <div class="container">
+            <!-- My Tickets here --><table class="table">
+  <thead>
+    <tr class="table-success" >
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+      <th scope="col">Number of Tickets</th>
+      <th scope="col">Shuttle Name</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>code - date</td>
+      <td>code - time</td>
+      <td>code - # Tickets</td>
+      <td>code - Shuttle Name</td>
+      <td>Code - edit/delete</td>
+    </tr>
+  </tbody>
+</table><br/><br/>
+        </div>
+        <div class="container">
+            <!-- My Payment Methods here --><table class="table">
+  <thead>
+    <tr class="table-info">
+      <th scope="col">Card Name</th>
+      <th scope="col">Card #</th>
+      <th scope="col">Expiration</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>code - name</td>
+      <td>code - #</td>
+      <td>code - expiration</td>
+      <td>code - edit/delete</td>
+    </tr>
+      </tbody>
+</table>
+        </div>
+    </ul>
+{% endblock %}
