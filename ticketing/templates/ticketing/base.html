@@ -55,7 +55,7 @@
                 <a class="nav-link" href="{% url 'payment_details_list' %}">View Payment Details</a>
             </li>
         </ul>
-        <class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
