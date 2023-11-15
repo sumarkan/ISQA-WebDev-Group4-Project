@@ -14,15 +14,16 @@ from django.contrib.auth.models import User
 def index(request):
     return render(request, 'ticketing/index.html')
 
-                        # I feel like there should be views - but there aren't for login/logout functions
-            # I have no idea where the view is coming from
-        # in urls.py it says auth_views unlike others
-            # am I missing a library or a view??
+def home(request):
+    return render(request, 'ticketing/base.html')
+
 
 def shuttle_list(request):
     shuttle_list = Shuttle.objects.all()
     return render(request, 'shuttle_list.html', {'shuttle_list': shuttle_list})
 
+class ShuttleListView(generic.ListView):
+    model = Shuttle
 
 def ticket_list(request):
     ticket_list = Ticket.objects.all()
@@ -51,20 +52,14 @@ def payment_details_list(request):
     context = {'payments': payments}
     return render(request, 'payment_details_list.html', context)
 
-
-class ShuttleListView(generic.ListView):
-    model = Shuttle
-
-
-    class MyTickets(LoginRequiredMixin,generic.ListView):
+class MyTickets(LoginRequiredMixin,generic.ListView):
     """Generic class-based view listing tickets purchased by the customer logged in"""
     model = Ticket
     template_name = 'my_tickets.html'
     paginate_by = 10
 
     def get_queryset(self):
-        return Ticket.objects.filter \
-            (customer=self.request.user).order_by('purchased_date')
+        return Ticket.objects.filter(customer=self.request.user).order_by('purchased_date')
 
 
 class ShuttleCreate(CreateView):
@@ -96,8 +91,7 @@ def shuttle_delete(request, pk):
         messages.success(request, (shuttle.name + ' cannot be deleted, Shuttle does not exists'))
 
     return redirect('shuttle_list')
-        return Ticket.objects.filter\
-            (customer=self.request.user).order_by('purchased_date')
+        # return Ticket.objects.filter(customer=self.request.user).order_by('purchased_date')
 
 
 class MyAccount(LoginRequiredMixin,generic.ListView):
