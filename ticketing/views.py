@@ -25,9 +25,9 @@ def shuttle_list(request):
 class ShuttleListView(generic.ListView):
     model = Shuttle
 
-def ticket_list(request):
-    ticket_list = Ticket.objects.all()
-    return render(request, 'ticket_list.html', {'ticket_list': ticket_list})
+#def ticket_list(request):
+#    ticket_list = Ticket.objects.all()
+#    return render(request, 'ticket_list.html', {'ticket_list': ticket_list})
 
 
 def schedule_list(request):
