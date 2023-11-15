@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'ticketing.apps.TicketingConfig',
     'register.apps.RegisterConfig',
     'crispy_forms',
-    'crispy_bootstrap4',
+   # 'crispy_bootstrap4',
 ]
 
 
@@ -137,7 +137,6 @@ import os
 MEDIA_URL = 'media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'Group4ISQA3900'
 EMAIL_HOST_PASSWORD = 'rutl kout lpak jucw'
