@@ -7,13 +7,11 @@
     <title>Mountain Cruise Shuttle Bus System</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <style>
         body {
             padding-top: 20px;
@@ -34,11 +32,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'index' %}">Home</a>
                 </li>
-              {% if user.is_authenticated and user.is_staff %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'shuttle_list' %}">Shuttles</a>
                 </li>
-             {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'ticket_list' %}">Tickets</a>
                 </li>
@@ -48,42 +44,34 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'payment_details_list' %}">View Payment Details</a>
                 </li>
+                {% if user.is_authenticated %}
+                <li><a class="nav-link" href="{% url 'mytickets' %}">My Tickets</a></li>
+                {% endif %}
 
             </ul>
             <ul class="navbar-nav ml-auto">
-        {% if user.is_authenticated %}
-            <li><a class="nav-link" href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
-            <li><a class="dropdown-item" href="{% url 'myaccount' %}">Manage Account</a></li>
-        {% else %}
-            <li><a class="nav-link" href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
-            <li><a class="dropdown-item" href="{% url 'register' %}"><span class="glyphicon glyphicon-log-in"></span>Sign Up</a>
-        {% endif %}
-    </ul>
-
-        <div class="btn-group">
-            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="true" id ="profileMenu" aria-haspopup="true">My Account</button>
-            <ul class="dropdown-menu" aria-labelledby="profileMenu">
-
-            <ul class="nav navbar-nav ml-auto">
-                        {% if user.is_authenticated %}
-                            <li><a class="dropdown-item" href="{% url 'myaccount' %}">Manage Account</a></li>
-                             <li><a class="dropdown-item" href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
-                        {% else %}
-                            <li><a class="dropdown-item" href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
-                            </li><a class="dropdown-item" href="{% url 'register' %}"><span class="glyphicon glyphicon-log-in"></span>Sign Up</a>
-                        {% endif %}
-                    </ul>
-
-
             {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                <a class="nav-link" href="{% url 'myaccount' %}">My Account</a>
+            </li>
             {% else %}
-                <li><a class="dropdown-item" href="{% url 'login' %}">Login</a>
-                {% endif %}
-        </div>
-            </ul>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            {% endif %}
+        <li><a class="nav-link" href="{% url 'register' %}"><span class="glyphicon glyphicon-log-in"></span>Sign Up</a>
+        </li>
+        </ul>
+    </div>
 </nav>
-
-
+<br/>
+    <div class="container">
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
     <footer class="bg-light text-center text-lg-start">
         <div class="container p-4">
             <div class="row">
