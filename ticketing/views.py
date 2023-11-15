@@ -14,11 +14,16 @@ from django.contrib.auth.models import User
 def index(request):
     return render(request, 'ticketing/index.html')
 
+def home(request):
+    return render(request, 'ticketing/base.html')
+
 
 def shuttle_list(request):
     shuttle_list = Shuttle.objects.all()
     return render(request, 'shuttle_list.html', {'shuttle_list': shuttle_list})
 
+class ShuttleListView(generic.ListView):
+    model = Shuttle
 
 def ticket_list(request):
     ticket_list = Ticket.objects.all()
@@ -81,8 +86,8 @@ def shuttle_delete(request, pk):
         messages.success(request, (shuttle.name + ' cannot be deleted, Shuttle does not exists'))
 
     return redirect('shuttle_list')
-#    return Ticket.objects.filter\
-#            (customer=self.request.user).order_by('purchased_date')
+        # return Ticket.objects.filter(customer=self.request.user).order_by('purchased_date')
+
 
 
 class MyAccount(LoginRequiredMixin,generic.ListView):

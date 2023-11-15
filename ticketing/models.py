@@ -43,7 +43,7 @@ class ShuttleSchedule(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return f'{self.id}'
+        return f'{self.shuttle_sched_id}'
 
 class Ticket(models.Model):
     """Model representing an Shuttle_schedule."""
