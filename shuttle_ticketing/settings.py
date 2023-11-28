@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'ticketing.apps.TicketingConfig',
     'register.apps.RegisterConfig',
     'crispy_forms',
-    # 'crispy_bootstrap4',
 ]
 
 
