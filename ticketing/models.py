@@ -67,18 +67,18 @@ class Ticket(models.Model):
         """String for representing the Model object."""
         return f'{self.ticket_number}'
 
-#    def is_past(self):
-#        """Boolean to determine if ticket is in the past"""
-#        return bool(self.shuttle_schd_id.schd_date and date.today() < self.shuttle_schd_id.schd_date)
+    def is_past(self):
+        """Boolean to determine if ticket is before today"""
+        return bool(self.shuttle_schd_id.schd_date and date.today() < self.shuttle_schd_id.schd_date)
 
-##    def is_today(self):
-#        """Boolean to determine if ticket is today"""
-##        return bool(self.schd_date == date.today)
+    def is_today(self):
+        """Boolean to determine if ticket is today"""
+        return bool(self.shuttle_schd_id.schd_date == date.today())
 
-##    def refundable(self):
-#        """Boolean to determine if ticket is still refundable (more than 24 hours in advance)"""
-## THIS IS WRONG CALC - NEEDS TO DETERMINE IF MORE THAN 1 DAY
-##        return bool(self.schd_date and date.today < self.schd_date)
+    def refundable(self):
+        """Boolean to determine if ticket is still refundable (more than 24 hours in advance)"""
+# THIS IS WRONG CALC - NEEDS TO DETERMINE IF MORE THAN 1 DAY
+        return bool(self.shuttle_schd_id.schd_date and date.today() < self.shuttle_schd_id.schd_date)
 
 
 class PaymentDetails(models.Model):
