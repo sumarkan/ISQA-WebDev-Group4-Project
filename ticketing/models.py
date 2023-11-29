@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import date
 
+
 # Create your models here.
 class Shuttle(models.Model):
     """Model representing an Shuttle."""
