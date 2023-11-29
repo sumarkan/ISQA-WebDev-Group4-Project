@@ -28,7 +28,7 @@ class Shuttle(models.Model):
 
 class ShuttleSchedule(models.Model):
     """Model representing an Shuttle_schedule."""
-    shuttle_sched_id = models.UUIDField(primary_key=True, default=uuid.uuid4,
+    shuttle_schd_id = models.UUIDField(primary_key=True, default=uuid.uuid4,
                                      help_text='Unique ID for this particular shuttle schedule')
     schd_time = models.TimeField()
     schd_date = models.DateField()
@@ -43,7 +43,7 @@ class ShuttleSchedule(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return f'{self.shuttle_sched_id}'
+        return f'{self.shuttle_schd_id}'
 
 
 class Ticket(models.Model):

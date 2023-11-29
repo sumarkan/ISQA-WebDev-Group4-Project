@@ -10,29 +10,41 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import User
 
 
-
 def index(request):
     return render(request, 'ticketing/index.html')
+
 
 def home(request):
     return render(request, 'ticketing/base.html')
 
 
-def shuttle_list(request):
-    shuttle_list = Shuttle.objects.all()
-    return render(request, 'shuttle_list.html', {'shuttle_list': shuttle_list})
-
+#class for Shuttle Lists
 class ShuttleListView(generic.ListView):
     model = Shuttle
 
+
+def shuttle_list(request):
+    list_shuttles = Shuttle.objects.all()
+    return render(request, 'shuttle_list.html', {'shuttle_list': list_shuttles})
+
+
+# class for ticket lists
+class TicketListView(generic.ListView):
+    model = Ticket
+
+
 def ticket_list(request):
-    ticket_list = Ticket.objects.all()
-    return render(request, 'ticket_list.html', {'ticket_list': ticket_list})
+    list_tickets = Ticket.objects.all()
+    return render(request, 'ticket_list.html', {'ticket_list': list_tickets})
+
+
+class ScheduleListView(generic.ListView):
+    model = ShuttleSchedule
 
 
 def schedule_list(request):
-    schedule_list = ShuttleSchedule.objects.all()
-    return render(request, 'schedule_list.html', {'schedule_list': schedule_list})
+    lists_schd_shuttles = ShuttleSchedule.objects.all()
+    return render(request, 'schedule_list.html', {'schedule_list': lists_schd_shuttles})
 
 
 def privacy_policy(request):
@@ -51,10 +63,6 @@ def payment_details_list(request):
     payments = PaymentDetails.objects.all()
     context = {'payments': payments}
     return render(request, 'payment_details_list.html', context)
-
-
-class ShuttleListView(generic.ListView):
-    model = Shuttle
 
 
 class ShuttleCreate(CreateView):
@@ -87,7 +95,6 @@ def shuttle_delete(request, pk):
 
     return redirect('shuttle_list')
         # return Ticket.objects.filter(customer=self.request.user).order_by('purchased_date')
-
 
 
 class MyAccount(LoginRequiredMixin,generic.ListView):
