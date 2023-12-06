@@ -8,14 +8,19 @@
             <th>Shuttle Name</th>
             <th> departs on</th>
             <th> At</th>
+            <th> Edit/Delete</th>
         </tr>
         {% for schedule in schedule_list %}
             <tr class="table-secondary">
                 <td>{{ schedule.shuttle_id.name }} </td>
                 <td>{{ schedule.schd_date }}</td>
-                <td>{{ schedule.schd_time }} <a href=""> Book Now </a></td>
+                <td>{{ schedule.schd_time }} </td>
+               <td>
+                        <a href="{% url 'shuttleschedule_update' pk=schedule.pk %}">Edit </a>
+                        /<a href="{% url 'shuttleschedule_delete' pk=schedule.pk %}">Delete </a>
+                </td>
             </tr>
-
         {% endfor %}
     </table>
+    <a href="{% url 'shuttleschedule_create' %}">Add New Schedule</a>
 {% endblock %}

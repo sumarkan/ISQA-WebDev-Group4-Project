@@ -10,9 +10,9 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import User
 
 
-
 def index(request):
     return render(request, 'ticketing/index.html')
+
 
 def home(request):
     return render(request, 'ticketing/base.html')
@@ -22,8 +22,10 @@ def shuttle_list(request):
     shuttle_list = Shuttle.objects.all()
     return render(request, 'shuttle_list.html', {'shuttle_list': shuttle_list})
 
+
 class ShuttleListView(generic.ListView):
     model = Shuttle
+
 
 def ticket_list(request):
     ticket_list = Ticket.objects.all()
@@ -86,67 +88,102 @@ def shuttle_delete(request, pk):
         messages.success(request, (shuttle.name + ' cannot be deleted, Shuttle does not exists'))
 
     return redirect('shuttle_list')
-        # return Ticket.objects.filter(customer=self.request.user).order_by('purchased_date')
+    # return Ticket.objects.filter(customer=self.request.user).order_by('purchased_date')
 
 
-
-class MyAccount(LoginRequiredMixin,generic.ListView):
+class MyAccount(LoginRequiredMixin, generic.ListView):
     """Generic class-based view listing tickets purchased by the customer logged in"""
     model = Ticket
     template_name = 'my_account.html'
     paginate_by = 10
 
     def get_queryset(self):
-        return Ticket.objects.filter\
+        return Ticket.objects.filter \
             (customer=self.request.user).order_by('purchased_date')
 
 
-class MyTickets(LoginRequiredMixin,generic.ListView):
+class MyTickets(LoginRequiredMixin, generic.ListView):
     """Generic class-based view listing tickets purchased by the customer logged in"""
     model = Ticket
     template_name = 'my_tickets.html'
     paginate_by = 10
 
     def get_queryset(self):
-        return Ticket.objects.filter\
+        return Ticket.objects.filter \
             (customer=self.request.user).order_by('purchased_date')
+
 
 class PasswordResetView(generic.ListView):
     """Generic class-based view listing tickets purchased by the customer logged in"""
-    model = Ticket #UNSURE ABOUT THIS ************
+    model = Ticket  # UNSURE ABOUT THIS ************
     template_name = 'registration/password_reset_form.html'
     paginate_by = 10
 
     def get_queryset(self):
-        return Ticket.objects.filter\
+        return Ticket.objects.filter \
             (customer=self.request.user).order_by('purchased_date')
+
 
 class PasswordResetDoneView(generic.ListView):
     """Generic class-based view listing tickets purchased by the customer logged in"""
-    model = Ticket #UNSURE ABOUT THIS ************
+    model = Ticket  # UNSURE ABOUT THIS ************
     template_name = 'registration/password_reset_done.html'
     paginate_by = 10
 
     def get_queryset(self):
-        return Ticket.objects.filter\
+        return Ticket.objects.filter \
             (customer=self.request.user).order_by('purchased_date')
+
 
 class PasswordResetConfirmView(generic.ListView):
     """Generic class-based view listing tickets purchased by the customer logged in"""
-    model = Ticket #UNSURE ABOUT THIS ************
+    model = Ticket  # UNSURE ABOUT THIS ************
     template_name = 'registration/password_reset_confirm.html'
     paginate_by = 10
 
     def get_queryset(self):
-        return Ticket.objects.filter\
+        return Ticket.objects.filter \
             (customer=self.request.user).order_by('purchased_date')
+
 
 class PasswordResetCompleteView(generic.ListView):
     """Generic class-based view listing tickets purchased by the customer logged in"""
-    model = Ticket #UNSURE ABOUT THIS ************
+    model = Ticket  # UNSURE ABOUT THIS ************
     template_name = 'registration/password_reset_complete.html'
     paginate_by = 10
 
     def get_queryset(self):
-        return Ticket.objects.filter\
+        return Ticket.objects.filter \
             (customer=self.request.user).order_by('purchased_date')
+
+
+class ShuttleScheduleCreate(CreateView):
+    model = ShuttleSchedule
+    fields = ['schd_time', 'schd_date', 'shuttle_id']
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.save()
+        return HttpResponseRedirect(reverse('schedule_list'))
+
+
+class ShuttleScheduleUpdate(UpdateView):
+    model = ShuttleSchedule
+    fields = ['schd_time', 'schd_date', 'shuttle_id']
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.save()
+        return HttpResponseRedirect(reverse('schedule_list'))
+
+
+def shuttleschedule_delete(request, pk):
+    schedule = get_object_or_404(ShuttleSchedule, pk=pk)
+    name = schedule.shuttle_id.name
+    try:
+        schedule.delete()
+        messages.success(request, ('schedule for shuttle with '+name + " has been deleted"))
+    except:
+        messages.success(request, ('schedule for shuttle with '+name + ' cannot be deleted, Shuttle does not exists'))
+
+    return redirect('schedule_list')
