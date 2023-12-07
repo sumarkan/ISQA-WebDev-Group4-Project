@@ -1,11 +1,11 @@
 from django.contrib import admin
-from .models import Shuttle, Ticket, ShuttleSchedule, PaymentDetails
+from .models import Shuttle, Ticket, ShuttleSchedule, PaymentDetails, Profile
 # Register your models here.
 
 admin.site.register(Shuttle)
 admin.site.register(ShuttleSchedule)
 admin.site.register(PaymentDetails)
-
+admin.site.register(Profile)
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):

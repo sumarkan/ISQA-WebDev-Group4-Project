@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import date
 
+
 # Create your models here.
 class Shuttle(models.Model):
     """Model representing an Shuttle."""
@@ -13,6 +14,7 @@ class Shuttle(models.Model):
     capacity = models.IntegerField()
     color = models.CharField(max_length=100)
     operated_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    shuttle_image = models.ImageField(upload_to='images/', null=True, blank=True)
 
     class Meta:
         ordering = ['capacity', 'color']
@@ -28,7 +30,7 @@ class Shuttle(models.Model):
 
 class ShuttleSchedule(models.Model):
     """Model representing an Shuttle_schedule."""
-    shuttle_sched_id = models.UUIDField(primary_key=True, default=uuid.uuid4,
+    shuttle_schd_id = models.UUIDField(primary_key=True, default=uuid.uuid4,
                                      help_text='Unique ID for this particular shuttle schedule')
     schd_time = models.TimeField()
     schd_date = models.DateField()
@@ -43,7 +45,7 @@ class ShuttleSchedule(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return f'{self.shuttle_sched_id}'
+        return f'{self.shuttle_schd_id}'
 
 
 class Ticket(models.Model):
@@ -117,3 +119,12 @@ class PaymentDetails(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.transaction_id}'
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE) #deletes profile when user deleted
+    image = models.ImageField(default='default_user.jpg', upload_to='profile_pics')
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return f'{self.user.username}s Profile'
+
