@@ -14,6 +14,7 @@ class Shuttle(models.Model):
     capacity = models.IntegerField()
     color = models.CharField(max_length=100)
     operated_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    shuttle_image = models.ImageField(upload_to='images/', null=True, blank=True)
 
     class Meta:
         ordering = ['capacity', 'color']
@@ -118,3 +119,12 @@ class PaymentDetails(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.transaction_id}'
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE) #deletes profile when user deleted
+    image = models.ImageField(default='default_user.jpg', upload_to='profile_pics')
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return f'{self.user.username}s Profile'
+
