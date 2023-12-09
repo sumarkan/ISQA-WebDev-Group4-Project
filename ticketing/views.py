@@ -18,17 +18,17 @@ def home(request):
     return render(request, 'ticketing/base.html')
 
 
-# class for Shuttle Lists
+def shuttle_list(request):
+    shuttle_list = Shuttle.objects.all()
+    return render(request, 'shuttle_list.html', {'shuttle_list': shuttle_list})
+
+
+#class for Shuttle Lists
 class ShuttleListView(generic.ListView):
     model = Shuttle
 
 
-def shuttle_list(request):
-    list_shuttles = Shuttle.objects.all()
-    return render(request, 'shuttle_list.html', {'shuttle_list': list_shuttles})
-
-
-# class for ticket lists
+#class for ticket lists
 class TicketListView(generic.ListView):
     model = Ticket
 
@@ -112,7 +112,7 @@ class MyAccount(LoginRequiredMixin, generic.ListView):
             (customer=self.request.user).order_by('purchased_date')
 
 
-# do i really need this? - i don't understand - Jill
+      
 def profile_list(request):
     list_profiles = Profile.objects.all()
     return render(request, 'profile_list.html', {'profile_list': list_profiles})
@@ -145,6 +145,8 @@ class ProfileUpdate(UpdateView):
         post = form.save(commit=False)
         post.save()
         return HttpResponseRedirect(reverse('myaccount'))
+        return Ticket.objects.filter \
+            (customer=self.request.user).order_by('purchased_date')
 
 
 class MyTickets(LoginRequiredMixin, generic.ListView):
@@ -200,3 +202,35 @@ class PasswordResetCompleteView(generic.ListView):
     def get_queryset(self):
         return Ticket.objects.filter \
             (customer=self.request.user).order_by('purchased_date')
+
+
+class ShuttleScheduleCreate(CreateView):
+    model = ShuttleSchedule
+    fields = ['schd_time', 'schd_date', 'shuttle_id']
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.save()
+        return HttpResponseRedirect(reverse('schedule_list'))
+
+
+class ShuttleScheduleUpdate(UpdateView):
+    model = ShuttleSchedule
+    fields = ['schd_time', 'schd_date', 'shuttle_id']
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.save()
+        return HttpResponseRedirect(reverse('schedule_list'))
+
+
+def shuttleschedule_delete(request, pk):
+    schedule = get_object_or_404(ShuttleSchedule, pk=pk)
+    name = schedule.shuttle_id.name
+    try:
+        schedule.delete()
+        messages.success(request, ('schedule for shuttle with '+name + " has been deleted"))
+    except:
+        messages.success(request, ('schedule for shuttle with '+name + ' cannot be deleted, Shuttle does not exists'))
+
+    return redirect('schedule_list')
