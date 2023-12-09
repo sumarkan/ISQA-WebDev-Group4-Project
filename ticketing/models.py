@@ -9,7 +9,7 @@ from datetime import date
 class Shuttle(models.Model):
     """Model representing an Shuttle."""
     shuttle_id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                                     help_text='Unique ID for this particular shuttle')
+                                  help_text='Unique ID for this particular shuttle')
     name = models.CharField(max_length=100)
     capacity = models.IntegerField()
     color = models.CharField(max_length=100)
@@ -31,7 +31,7 @@ class Shuttle(models.Model):
 class ShuttleSchedule(models.Model):
     """Model representing an Shuttle_schedule."""
     shuttle_schd_id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                                     help_text='Unique ID for this particular shuttle schedule')
+                                       help_text='Unique ID for this particular shuttle schedule')
     schd_time = models.TimeField()
     schd_date = models.DateField()
     shuttle_id = models.ForeignKey('Shuttle', on_delete=models.RESTRICT, null=True)
@@ -57,7 +57,6 @@ class Ticket(models.Model):
     shuttle_schd_id = models.ForeignKey('ShuttleSchedule', on_delete=models.RESTRICT, null=True)
     customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
-
     class Meta:
         ordering = ['purchased_date']
 
@@ -79,14 +78,14 @@ class Ticket(models.Model):
 
     def refundable(self):
         """Boolean to determine if ticket is still refundable (more than 24 hours in advance)"""
-# THIS IS WRONG CALC - NEEDS TO DETERMINE IF MORE THAN 1 DAY
+        # THIS IS WRONG CALC - NEEDS TO DETERMINE IF MORE THAN 1 DAY
         return bool(self.shuttle_schd_id.schd_date and date.today() < self.shuttle_schd_id.schd_date)
 
 
 class PaymentDetails(models.Model):
     """Model representing an PaymentStatus."""
 
-# look for loan status 
+    # look for loan status
     PAID = 'PAID'
     CANCELLED = 'CANCELLED'
     PENDING = 'PENDING'
@@ -120,11 +119,14 @@ class PaymentDetails(models.Model):
         """String for representing the Model object."""
         return f'{self.transaction_id}'
 
+
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE) #deletes profile when user deleted
-    image = models.ImageField(default='default_user.jpg', upload_to='profile_pics')
+    profile_id = models.OneToOneField(User, on_delete=models.CASCADE)
+#    profile_first = models.OneToOneField(User.first_name, on_delete=models.CASCADE)
+#    profile_last = models.OneToOneField(User.last_name, on_delete=models.CASCADE)
+#    profile_email = models.OneToOneField(User.email, on_delete=models.CASCADE)
+    profile_image = models.ImageField(default='default_user.jpg', upload_to='profile_pics')
 
     def __str__(self):
         """String for representing the Model object."""
-        return f'{self.user.username}s Profile'
-
+        return f'{self.profile_id.username}s Profile'

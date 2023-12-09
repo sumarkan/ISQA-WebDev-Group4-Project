@@ -20,9 +20,9 @@ urlpatterns = [
     path('password_reset/done/', views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', views.PasswordResetCompleteView.as_view(), name='password_reset_complete'), # COPIED FROM TUTORIAL
-
+    path('profile_list/', views.profile_list, name='profile_list'),
+    path('profile_detail/<int:pk>', views.ProfileDetail.as_view(), name='profile_detail'),
     path('schedule/create/', views.ShuttleScheduleCreate.as_view(), name='shuttleschedule_create'),
     path('schedule/<uuid:pk>/update/', views.ShuttleScheduleUpdate.as_view(), name='shuttleschedule_update'),
     path('schedule/<uuid:pk>/delete/', views.shuttleschedule_delete, name='shuttleschedule_delete'),
-
 ]

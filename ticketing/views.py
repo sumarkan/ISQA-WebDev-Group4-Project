@@ -1,4 +1,4 @@
-from .models import Shuttle, ShuttleSchedule, Ticket, PaymentDetails
+from .models import Shuttle, ShuttleSchedule, Ticket, PaymentDetails, Profile
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from django.shortcuts import render, get_object_or_404, redirect
@@ -36,6 +36,10 @@ class TicketListView(generic.ListView):
 def ticket_list(request):
     list_tickets = Ticket.objects.all()
     return render(request, 'ticket_list.html', {'ticket_list': list_tickets})
+
+
+# class TicketDetailView(generic.DetailView)
+#    model = Ticket
 
 
 class ScheduleListView(generic.ListView):
@@ -97,14 +101,50 @@ def shuttle_delete(request, pk):
     # return Ticket.objects.filter(customer=self.request.user).order_by('purchased_date')
 
 
-    
 class MyAccount(LoginRequiredMixin, generic.ListView):
     """Generic class-based view listing tickets purchased by the customer logged in"""
-    model = Ticket
+    model = Profile
     template_name = 'my_account.html'
     paginate_by = 10
 
     def get_queryset(self):
+        return Profile.objects.filter \
+            (customer=self.request.user).order_by('purchased_date')
+
+
+      
+def profile_list(request):
+    list_profiles = Profile.objects.all()
+    return render(request, 'profile_list.html', {'profile_list': list_profiles})
+
+
+class ProfileDetail(generic.DetailView):
+    model = Profile
+
+
+def profile_detail(request):
+    detailed_profile = Profile.objects.all()
+    return render(request, 'profile_list.html', {'profile_list': detailed_profile})
+
+
+class ProfileCreate(CreateView):
+    model = Profile
+    fields = ['profile_id', 'profile_first', 'profile_last', 'profile_email', 'profile_image']
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.save()
+        return HttpResponseRedirect(reverse('myaccount'))
+
+
+class ProfileUpdate(UpdateView):
+    model = Profile
+    fields = ['profile_id', 'profile_first', 'profile_last', 'profile_email', 'profile_image']
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.save()
+        return HttpResponseRedirect(reverse('myaccount'))
         return Ticket.objects.filter \
             (customer=self.request.user).order_by('purchased_date')
 

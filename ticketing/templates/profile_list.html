@@ -1,0 +1,17 @@
+{% extends "ticketing/base.html" %}
+
+{% block content %}
+  <h1>Profile List</h1>
+  {% if profile_list %}
+  <ul>
+    {% for profile in profile_list %}
+      <li> <td>{{ profile.user_id.username }} </td>
+
+        <a href="{{ profile.get_absolute_url }}">{{ profile.profile_id.username }}</a> ({{ profile.profile_image }})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no books in the library.</p>
+  {% endif %}
+{% endblock %}
