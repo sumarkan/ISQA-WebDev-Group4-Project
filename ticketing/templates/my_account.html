@@ -1,7 +1,7 @@
 {% extends "ticketing/base.html" %}
 
 {% block content %}
-    <h2>Welcome {{ ticket.customer.first_name }} {{ ticket.customer.last_name  }}</h2><br/>
+    <h2>Welcome {{ user.username }} </h2><br/>
     <a>I need to pull in the profile picture and view HERE using user = profile? and pull right?</a>
     <a class="button" href="{% url 'logout' %}">Logout</a>
 
