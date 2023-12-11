@@ -234,3 +234,34 @@ def shuttleschedule_delete(request, pk):
         messages.success(request, ('schedule for shuttle with '+name + ' cannot be deleted, Shuttle does not exists'))
 
     return redirect('schedule_list')
+
+
+class TicketCreate(CreateView):
+    model = Ticket
+    fields = ['ticket_number', 'purchased_date', 'shuttle_schd_id', 'customer']
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.save()
+        return HttpResponseRedirect(reverse('ticket_list'))
+
+
+class TicketUpdate(UpdateView):
+    model = Ticket
+    fields = ['ticket_number', 'purchased_date', 'shuttle_schd_id', 'customer']
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.save()
+        return HttpResponseRedirect(reverse('ticket_list'))
+
+
+def ticket_delete(request, pk):
+    ticket = get_object_or_404(Ticket, pk=pk)
+    try:
+        ticket.delete()
+        messages.success(request, ('ticket has been deleted'))
+    except:
+        messages.success(request, ('Error deleting Ticket'))
+
+    return redirect('ticket_list')
