@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mountain Cruise Shuttle Bus System</title>
 
-  
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'ticketing/css/styles.css' %}">
 
-  
-  <!-- Optional JavaScript -->
+
+    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -20,6 +20,7 @@
         body {
             padding-top: 20px;
         }
+
         nav {
             margin-bottom: 20px;
         }
@@ -47,9 +48,12 @@
                     <a class="nav-link" href="{% url 'profile_list' %}">Profiles</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'schedule_list' %}">Shuttle Schedules</a>
+                    <a class="nav-link" href="{% url 'schedule_list' %}">Schedules</a>
                 </li>
-        {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'ticket_list' %}">Tickets</a>
+                </li>
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'payment_details_list' %}">View Payment Details</a>
             </li>
@@ -62,10 +66,8 @@
             {% else %}
                 <li class="nav-item">
                 <li><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-              {% endif %}
+            {% endif %}
         </ul>
-
-
 
 
     </div>
