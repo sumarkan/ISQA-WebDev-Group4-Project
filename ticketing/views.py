@@ -82,7 +82,7 @@ def schedule_list(request):
     return render(request, 'schedule_list.html', context)
 
 def my_ticket_number(request):
-    return render(request, 'my_ticket_number.html')
+    return render(request, 'my_ticket_number.html', context = {'show_back_button': True})
 
 def payment_details_list(request):
     if request.method == 'POST':
