@@ -8,12 +8,11 @@ from datetime import date, datetime, timedelta
 class Shuttle(models.Model):
     """Model representing an Shuttle."""
     shuttle_id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                                  help_text='Unique ID for this particular shuttle')
+                                     help_text='Unique ID for this particular shuttle')
     name = models.CharField(max_length=100)
     capacity = models.IntegerField()
     color = models.CharField(max_length=100)
     operated_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    shuttle_image = models.ImageField(upload_to='images/', null=True, blank=True)
 
     class Meta:
         ordering = ['capacity', 'color']
@@ -30,7 +29,7 @@ class Shuttle(models.Model):
 class ShuttleSchedule(models.Model):
     """Model representing a Shuttle_schedule."""
     shuttle_schd_id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                                       help_text='Unique ID for this particular shuttle schedule')
+                                     help_text='Unique ID for this particular shuttle schedule')
     schd_time = models.TimeField()
     schd_date = models.DateField()
     shuttle_id = models.ForeignKey('Shuttle', on_delete=models.RESTRICT, null=True)
@@ -77,13 +76,10 @@ class Ticket(models.Model):
     def refundable(self):
         """Determines if ticket is still refundable (more than 24 hours in advance)."""
         return datetime.combine(self.shuttle_schd_id.schd_date, self.shuttle_schd_id.schd_time) - datetime.now() > timedelta(days=1)
-        """Boolean to determine if ticket is still refundable (more than 24 hours in advance)"""
-        # THIS IS WRONG CALC - NEEDS TO DETERMINE IF MORE THAN 1 DAY
-        # return bool(self.shuttle_schd_id.schd_date and date.today() < self.shuttle_schd_id.schd_date)
 
 class PaymentDetails(models.Model):
     """Model representing Payment Details."""
-    # look for loan status
+
     PAID = 'PAID'
     CANCELLED = 'CANCELLED'
     PENDING = 'PENDING'
@@ -108,18 +104,3 @@ class PaymentDetails(models.Model):
 
     def __str__(self):
         return f'Transaction ID: {self.transaction_id}'
-        """String for representing the Model object."""
-   #     return f'{self.transaction_id}'
-
-
-class Profile(models.Model):
-    profile_id = models.OneToOneField(User, on_delete=models.CASCADE)
-#    profile_first = models.OneToOneField(User.first_name, on_delete=models.CASCADE)
-#    profile_last = models.OneToOneField(User.last_name, on_delete=models.CASCADE)
-#    profile_email = models.OneToOneField(User.email, on_delete=models.CASCADE)
-    profile_image = models.ImageField(default='default_user.jpg', upload_to='profile_pics')
-
-    def __str__(self):
-        """String for representing the Model object."""
-        return f'{self.profile_id.username}s Profile'
-
