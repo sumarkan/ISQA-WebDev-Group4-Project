@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mountain Cruise Shuttle Bus System</title>
 
-
-
-  <!-- There are 2 style sheets... is this ok? -->
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'ticketing/css/styles.css' %}">
 
@@ -20,6 +16,7 @@
         body {
             padding-top: 20px;
         }
+
         nav {
             margin-bottom: 20px;
         }
@@ -46,10 +43,18 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'schedule_list' %}">Shuttle Schedules</a>
             </li>
-        {% endif %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'my_ticket_number' %}">View Payment Details</a>
-
+                    <a class="nav-link" href="{% url 'profile_list' %}">Profiles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'schedule_list' %}">Schedules</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'ticket_list' %}">Tickets</a>
+                </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'payment_details_list' %}">View Payment Details</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -60,10 +65,8 @@
             {% else %}
                 <li class="nav-item">
                 <li><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-              {% endif %}
+            {% endif %}
         </ul>
-
-
 
 
     </div>

@@ -1,4 +1,4 @@
-from .models import Shuttle, ShuttleSchedule, Ticket, PaymentDetails, Profile
+from .models import Shuttle, ShuttleSchedule, Ticket, PaymentDetails
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from django.shortcuts import render, get_object_or_404, redirect
@@ -32,13 +32,7 @@ def shuttle_list(request):
     return render(request, 'shuttle_list.html', context)
 
 
-def shuttle_list(request):
-    shuttle_list = Shuttle.objects.all()
-    return render(request, 'shuttle_list.html', {'shuttle_list': shuttle_list})
-
-
-#class for Shuttle Lists
-class ShuttleListView(generic.ListView):
+class ShuttleCreate(CreateView):
     model = Shuttle
     fields = ['name', 'capacity', 'color', 'operated_by']
     template_name = 'shuttle_create.html'
@@ -66,17 +60,16 @@ class ShuttleDelete(DeleteView):
         """
         context = super(ShuttleDelete, self).get_context_data(**kwargs)
         return context
-      
-      
+
 
 # Ticket list view
 def ticket_list(request):
     list_tickets = Ticket.objects.all()
-    return render(request, 'ticket_list.html', {'ticket_list': list_tickets})
-
-
-# class TicketDetailView(generic.DetailView)
-#    model = Ticket
+    context = {
+        'ticket_list': list_tickets,
+        'show_back_button': True
+    }
+    return render(request, 'ticket_list.html', context)
 
 
 # Schedule list view
@@ -89,7 +82,7 @@ def schedule_list(request):
     return render(request, 'schedule_list.html', context)
 
 def my_ticket_number(request):
-    return render(request, 'my_ticket_number.html')
+    return render(request, 'my_ticket_number.html', context = {'show_back_button': True})
 
 def payment_details_list(request):
     if request.method == 'POST':
@@ -165,109 +158,72 @@ def shuttle_delete(request, pk):
         messages.success(request, (shuttle.name + ' cannot be deleted, Shuttle does not exists'))
 
     return redirect('shuttle_list')
-    # return Ticket.objects.filter(customer=self.request.user).order_by('purchased_date')
+        # return Ticket.objects.filter(customer=self.request.user).order_by('purchased_date')
 
 
-class MyAccount(LoginRequiredMixin, generic.ListView):
+class MyAccount(LoginRequiredMixin,generic.ListView):
     """Generic class-based view listing tickets purchased by the customer logged in"""
-    model = Profile
+    model = Ticket
     template_name = 'my_account.html'
     paginate_by = 10
 
     def get_queryset(self):
-        return Profile.objects.filter \
+        return Ticket.objects.filter\
             (customer=self.request.user).order_by('purchased_date')
 
 
-      
-def profile_list(request):
-    list_profiles = Profile.objects.all()
-    return render(request, 'profile_list.html', {'profile_list': list_profiles})
-
-
-class ProfileDetail(generic.DetailView):
-    model = Profile
-
-
-def profile_detail(request):
-    detailed_profile = Profile.objects.all()
-    return render(request, 'profile_list.html', {'profile_list': detailed_profile})
-
-
-class ProfileCreate(CreateView):
-    model = Profile
-    fields = ['profile_id', 'profile_first', 'profile_last', 'profile_email', 'profile_image']
-
-    def form_valid(self, form):
-        post = form.save(commit=False)
-        post.save()
-        return HttpResponseRedirect(reverse('myaccount'))
-
-
-class ProfileUpdate(UpdateView):
-    model = Profile
-    fields = ['profile_id', 'profile_first', 'profile_last', 'profile_email', 'profile_image']
-
-    def form_valid(self, form):
-        post = form.save(commit=False)
-        post.save()
-        return HttpResponseRedirect(reverse('myaccount'))
-        return Ticket.objects.filter \
-            (customer=self.request.user).order_by('purchased_date')
-
-
-class MyTickets(LoginRequiredMixin, generic.ListView):
+class MyTickets(LoginRequiredMixin,generic.ListView):
     """Generic class-based view listing tickets purchased by the customer logged in"""
     model = Ticket
     template_name = 'my_tickets.html'
     paginate_by = 10
 
     def get_queryset(self):
-        return Ticket.objects.filter \
+        return Ticket.objects.filter\
             (customer=self.request.user).order_by('purchased_date')
 
 
 class PasswordResetView(generic.ListView):
     """Generic class-based view listing tickets purchased by the customer logged in"""
-    model = Ticket  # UNSURE ABOUT THIS ************
+    model = Ticket #UNSURE ABOUT THIS ************
     template_name = 'registration/password_reset_form.html'
     paginate_by = 10
 
     def get_queryset(self):
-        return Ticket.objects.filter \
+        return Ticket.objects.filter\
             (customer=self.request.user).order_by('purchased_date')
 
 
 class PasswordResetDoneView(generic.ListView):
     """Generic class-based view listing tickets purchased by the customer logged in"""
-    model = Ticket  # UNSURE ABOUT THIS ************
+    model = Ticket #UNSURE ABOUT THIS ************
     template_name = 'registration/password_reset_done.html'
     paginate_by = 10
 
     def get_queryset(self):
-        return Ticket.objects.filter \
+        return Ticket.objects.filter\
             (customer=self.request.user).order_by('purchased_date')
 
 
 class PasswordResetConfirmView(generic.ListView):
     """Generic class-based view listing tickets purchased by the customer logged in"""
-    model = Ticket  # UNSURE ABOUT THIS ************
+    model = Ticket #UNSURE ABOUT THIS ************
     template_name = 'registration/password_reset_confirm.html'
     paginate_by = 10
 
     def get_queryset(self):
-        return Ticket.objects.filter \
-            (customer=self.request.user).order_by('purchased_date')
+        return Ticket.objects.filter\
+           (customer=self.request.user).order_by('purchased_date')
 
 
 class PasswordResetCompleteView(generic.ListView):
     """Generic class-based view listing tickets purchased by the customer logged in"""
-    model = Ticket  # UNSURE ABOUT THIS ************
+    model = Ticket #UNSURE ABOUT THIS ************
     template_name = 'registration/password_reset_complete.html'
     paginate_by = 10
 
     def get_queryset(self):
-        return Ticket.objects.filter \
+        return Ticket.objects.filter\
             (customer=self.request.user).order_by('purchased_date')
 
 
@@ -299,35 +255,5 @@ def shuttleschedule_delete(request, pk):
         messages.success(request, ('schedule for shuttle with '+name + " has been deleted"))
     except:
         messages.success(request, ('schedule for shuttle with '+name + ' cannot be deleted, Shuttle does not exists'))
+
     return redirect('schedule_list')
-
-
-class TicketCreate(CreateView):
-    model = Ticket
-    fields = ['ticket_number', 'purchased_date', 'shuttle_schd_id', 'customer']
-
-    def form_valid(self, form):
-        post = form.save(commit=False)
-        post.save()
-        return HttpResponseRedirect(reverse('ticket_list'))
-
-
-class TicketUpdate(UpdateView):
-    model = Ticket
-    fields = ['ticket_number', 'purchased_date', 'shuttle_schd_id', 'customer']
-
-    def form_valid(self, form):
-        post = form.save(commit=False)
-        post.save()
-        return HttpResponseRedirect(reverse('ticket_list'))
-
-
-def ticket_delete(request, pk):
-    ticket = get_object_or_404(Ticket, pk=pk)
-    try:
-        ticket.delete()
-        messages.success(request, ('ticket has been deleted'))
-    except:
-        messages.success(request, ('Error deleting Ticket'))
-
-    return redirect('ticket_list')
