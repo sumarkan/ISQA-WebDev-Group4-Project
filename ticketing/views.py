@@ -32,11 +32,6 @@ def shuttle_list(request):
     return render(request, 'shuttle_list.html', context)
 
 
-def shuttle_list(request):
-    shuttle_list = Shuttle.objects.all()
-    return render(request, 'shuttle_list.html', {'shuttle_list': shuttle_list})
-
-
 #class for Shuttle Lists
 class ShuttleListView(generic.ListView):
     model = Shuttle
@@ -74,9 +69,6 @@ def ticket_list(request):
     list_tickets = Ticket.objects.all()
     return render(request, 'ticket_list.html', {'ticket_list': list_tickets})
 
-
-# class TicketDetailView(generic.DetailView)
-#    model = Ticket
 
 
 # Schedule list view
@@ -176,7 +168,7 @@ class MyAccount(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return Profile.objects.filter \
-            (customer=self.request.user).order_by('purchased_date')
+            (profile_id=self.request.user)
 
 
       
