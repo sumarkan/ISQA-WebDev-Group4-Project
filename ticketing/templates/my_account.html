@@ -2,7 +2,11 @@
 
 {% block content %}
     <h2>Welcome {{ user.username }} </h2><br/>
-    <a>I need to pull in the profile picture and view HERE using user = profile? and pull right?</a>
+    <div>
+    {% if profile_list.profile_image %}
+        <img src="{{ profile.profile_image.url }}" alt="Profile Picture">
+    {% endif %}
+    </div>
     <a class="button" href="{% url 'logout' %}">Logout</a>
 
     <br/>

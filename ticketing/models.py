@@ -117,7 +117,7 @@ class Profile(models.Model):
 #    profile_first = models.OneToOneField(User.first_name, on_delete=models.CASCADE)
 #    profile_last = models.OneToOneField(User.last_name, on_delete=models.CASCADE)
 #    profile_email = models.OneToOneField(User.email, on_delete=models.CASCADE)
-    profile_image = models.ImageField(default='default_user.jpg', upload_to='profile_pics')
+    profile_image = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
 
     def __str__(self):
         """String for representing the Model object."""
