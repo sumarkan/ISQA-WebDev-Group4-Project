@@ -85,3 +85,17 @@ footer {
     padding: 20px 0;
     margin-top: auto;
 }
+.back-button {
+        padding: 1px 5px; /* Adjust padding to make the button shorter */
+        background-color: #007bff; /* Bootstrap primary blue color */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 20px;
+        width: 300px;
+    }
+
+    .back-button:hover {
+        background-color: #B30056;
+    }
