@@ -13,7 +13,6 @@ urlpatterns = [
     path('schedule/', views.schedule_list, name='schedule_list'),
     path('my_ticket_number/', views.my_ticket_number, name='my_ticket_number'),
     path('payment_details_list/', views.payment_details_list, name='payment_details'),
-
     path('payments/', views.payment_details_list, name='payment_details_list'),
     path('privacy_policy/', views.privacy_policy, name='privacy_policy'),
     path('terms_of_service/', views.terms_of_service, name='terms_of_service'),
