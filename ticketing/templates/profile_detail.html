@@ -1,0 +1,49 @@
+{% extends "ticketing/base.html" %}
+
+{% block content %}
+  <h1>Name: {{ user.first_name }} {{ user.last_name }}</h1>
+
+  <p><strong>Username:</strong> <a href="">{{ user.username }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>Username:</strong> <a href="">{{ profile.profile_id.username }}</a></p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+  <p><strong>Image:</strong> {{ profile.profile_image }}</p>
+
+  <div style="margin-left:20px;margin-top:20px">
+
+  <table class="table">
+  <thead>
+    <tr class="table-success" >
+      <th scope="col">Username</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Email</th>
+      <th scope="col">Date Joined</th>
+      <th scope="col">Last Login</th>
+      <th scope="col">User Group</th>
+      <th scope="col">Active</th>
+      <th scope="col">Superuser</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for profile in profile_list %}
+                <tr class="table-secondary">
+                    <td>{{ profile.profile_id.username }}</td>
+                    <td>{{ profile.profile_id.first_name }}</td>
+                    <td>{{ profile.profile_id.last_name }}</td>
+                    <td>{{ profile.profile_id.email }}</td>
+                    <td>{{ profile.profile_id.date_joined }}</td>
+                    <td>{{ profile.profile_id.username.group_id.name }}</td>
+                    <td>{{ profile.profile_id.is_active }}</td>
+                    <td>{{ profile.profile_id.is_superuser }}</td>
+                    <td>edit/delete
+{#                        <a href="{% url 'profile_update' pk=shuttle.pk %}">Edit </a>}
+{#                        /<a href="{% url 'profile_delete' pk=shuttle.pk %}">Delete </a>#}
+                    </td>
+                </tr>
+            {% endfor %}
+  </tbody>
+ </table><br/><br/>
+</div>
+
+{% endblock %}
+

@@ -1,7 +1,12 @@
 {% extends "ticketing/base.html" %}
 
 {% block content %}
-    <h2>Welcome {{ ticket.customer.first_name }} {{ ticket.customer.last_name  }}</h2><br/>
+    <h2>Welcome {{ user.username }} </h2><br/>
+    <div>
+    {% if profile_list.profile_image %}
+        <img src="{{ profile.profile_image.url }}" alt="Profile Picture">
+    {% endif %}
+    </div>
     <a class="button" href="{% url 'logout' %}">Logout</a>
 
     <br/>

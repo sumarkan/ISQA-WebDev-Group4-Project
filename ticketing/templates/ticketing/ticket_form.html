@@ -2,12 +2,12 @@
 {% load crispy_forms_tags %}
 {% load crispy_forms_filters %}
 {% block content %}
-    {% if perms.ticketing.create_shuttle %}
+    {% if perms.ticketing.create_ticket %}
         <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form|crispy }}
             <input type="submit" value="Submit"/>
-        </form>s
+        </form>
     {% else %}
         You do not have permission to access this feature
         <a href="{% url 'index' %}">Home</a>
